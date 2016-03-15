@@ -110,11 +110,44 @@ elseif MDtype==2
 elseif MDtype==3
     % Comment/delete lines below once you have implemented this case
     % *******************************************************
-    menu({'Damage surface "NON-SYMMETRIC" has not been implemented yet. '; ...
-        'Modify files "Modelos_de_dano1" and "dibujar_criterio_dano1"' ; ...
-        'to include this option'},  ...
-        'STOP');
-    error('OPTION NOT AVAILABLE')
+    tetha=[0:0.01:2*pi];
+    %**************************************************************************************
+    %* RADIUS
+    D=size(tetha);                       %*  Range
+    m1=cos(tetha);                       %*
+    m2=sin(tetha);                       %*
+    Contador=D(1,2);                     %*
+    
+    
+    radio = zeros(1,Contador) ;
+    s1    = zeros(1,Contador) ;
+    s2    = zeros(1,Contador) ;
+    
+    
+
+for i=1:4
+    if sigma_v_mc(i)<0
+        sigma_v_mc(i)=0;
+    end
+end   
+
+tetha2=(sigma_v_mc(1)+sigma_v_mc(2)+sigma_v_mc(3))/(sigma_v(1)+sigma_v(2)+sigma_v(3));
+    
+    
+    
+    for i=1:Contador
+        radio(i)= (tetha2+(1-tetha2)/n)*q/sqrt([m1(i) m2(i) 0 nu*(m1(i)+m2(i))]*ce_inv*[m1(i) m2(i) 0 ...
+            nu*(m1(i)+m2(i))]');
+        
+        s1(i)=radio(i)*m1(i);
+        s2(i)=radio(i)*m2(i);  
+        
+    end
+    hplot =plot(s1,s2,tipo_linea);
+    
+    
+    
+    
     
 end
 %**************************************************************************************

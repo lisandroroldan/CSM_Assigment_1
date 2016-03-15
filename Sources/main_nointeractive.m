@@ -1,5 +1,6 @@
 clc
 clear all
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Program for modelling damage model
 % (Elemental gauss point level)
@@ -29,7 +30,7 @@ YIELD_STRESS = 200 ;
 % Problem type  TP = {'PLANE STRESS','PLANE STRAIN','3D'}
 % ------------------------ = 1            =2         =3
 % ------------
-ntype= 3 ;
+ntype= 2 ;
 % Model    PTC = {'SYMMETRIC','TENSION','NON-SYMMETRIC'} ;
 %                     = 1         = 2         = 3
 % ---------------------------------------------------
