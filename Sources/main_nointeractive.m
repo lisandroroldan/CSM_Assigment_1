@@ -33,7 +33,7 @@ ntype= 2 ;
 % Model    PTC = {'SYMMETRIC','TENSION','NON-SYMMETRIC'} ;
 %                     = 1         = 2         = 3
 % ---------------------------------------------------
-MDtype =1;
+MDtype =2; 
 % Ratio compression strength / tension strength
 % ---------------------------------------------
 n = 3 ;
@@ -48,7 +48,7 @@ VISCOUS = 'NO' ;
 eta = 0.3 ;
 % TimeTotal (initial = 0) ----
 % ------------------------
-TimeTotal = 10 ; ;
+TimeTotal = 10 ;
 % Integration coefficient ALPHA
 % ------------------------
 ALPHA_COEFF = 0.5 ;
