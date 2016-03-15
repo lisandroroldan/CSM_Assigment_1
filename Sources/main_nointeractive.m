@@ -29,11 +29,11 @@ YIELD_STRESS = 200 ;
 % Problem type  TP = {'PLANE STRESS','PLANE STRAIN','3D'}
 % ------------------------ = 1            =2         =3
 % ------------
-ntype= 2 ;
+ntype= 3 ;
 % Model    PTC = {'SYMMETRIC','TENSION','NON-SYMMETRIC'} ;
 %                     = 1         = 2         = 3
 % ---------------------------------------------------
-MDtype =2; 
+MDtype =3; 
 % Ratio compression strength / tension strength
 % ---------------------------------------------
 n = 3 ;

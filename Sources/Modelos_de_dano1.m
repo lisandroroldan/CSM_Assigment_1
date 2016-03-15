@@ -30,10 +30,18 @@ for i=1:4
 end
 rtrial= sqrt(sigma_v*eps_n1'); %return value
 
+case 3 %*Non-symmetric
+sigma_v=eps_n1*ce; %stress tensor
+sigma_v=sigma_v_mc;
+for i=1:4
+    if sigma_v_mc(i)<0
+        sigma_v_mc(i)=0;
+    end
+end   
+
+tetha=(sigma_v_mc(1)+sigma_v_mc(2)+sigma_v_mc(3))/norm(sigma_v);
+
+rtrial= sqrt(eps_n1*ce*eps_n1')*(tetha+(1-tetha)/n);
 
 end
-    
-%elseif (MDtype==3)  %*Non-symmetric
 
-%end
-%**************************************************************************************

@@ -30,7 +30,7 @@ hold on;
 grid on;
 q=sigma_u/sqrt(E);
 
-hplot = dibujar_criterio_dano1(ce, nu, q , 'b-', MDtype,n );
+hplot = dibujar_criterio_dano1(ce, nu, q , 'b-', MDtype, n );
 
 
 %%%%%
