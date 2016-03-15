@@ -110,7 +110,7 @@ elseif MDtype==2
 elseif MDtype==3
     % Comment/delete lines below once you have implemented this case
     % *******************************************************
-    tetha=[0:0.01:2*pi];
+    tetha=[0:0.001:2*pi];
     %**************************************************************************************
     %* RADIUS
     D=size(tetha);                       %*  Range
@@ -122,22 +122,26 @@ elseif MDtype==3
     radio = zeros(1,Contador) ;
     s1    = zeros(1,Contador) ;
     s2    = zeros(1,Contador) ;
-    
-    
 
-for i=1:4
-    if sigma_v_mc(i)<0
-        sigma_v_mc(i)=0;
-    end
-end   
-
-tetha2=(sigma_v_mc(1)+sigma_v_mc(2)+sigma_v_mc(3))/(sigma_v(1)+sigma_v(2)+sigma_v(3));
-    
-    
-    
     for i=1:Contador
-        radio(i)= (tetha2+(1-tetha2)/n)*q/sqrt([m1(i) m2(i) 0 nu*(m1(i)+m2(i))]*ce_inv*[m1(i) m2(i) 0 ...
-            nu*(m1(i)+m2(i))]');
+        
+        theta2 = ((m1(i)>0)*m1(i) + (m2(i)>0)*m2(i)  + (nu*(m1(i)+m2(i)))*((nu*(m1(i)+m2(i)))>0)    )/((abs(m1(i))) + (abs(m2(i))) + (abs(nu*(m1(i)+m2(i)))));
+        
+        radio(i)= q/((theta2+(1-theta2)/n)*sqrt([m1(i) m2(i) 0 nu*(m1(i)+m2(i))]*ce_inv*[m1(i) m2(i) 0 ...
+            nu*(m1(i)+m2(i))]'));
+        
+        
+        
+        
+        
+        
+%         m3(i)=nu*(m1(i)+m2(i));
+%         m1_mc(i)=m1(i)*(m1(i)>0);
+%         m2_mc(i)=m2(i)*(m2(i)>0);
+%         m3_mc(i)=nu*(m1_mc(i)+m2_mc(i))*((nu*(m1_mc(i)+m2_mc(i))>0));
+%         tetha2(i)=(m1_mc(i)+m2_mc(i)+m3_mc(i))/(m1(i)+m1(i)+m3(i));
+%         radio(i)= (tetha2(i)+(1-tetha2(i))/n)*q/sqrt([m1(i) m2(i) 0 nu*(m1(i)+m2(i))]*ce_inv*[m1(i) m2(i) 0 ...
+%             nu*(m1(i)+m2(i))]');
         
         s1(i)=radio(i)*m1(i);
         s2(i)=radio(i)*m2(i);  
