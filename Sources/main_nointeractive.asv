@@ -40,7 +40,7 @@ MDtype =1;
 n = 3 ;
 % SOFTENING/HARDENING TYPE
 % ------------------------
-HARDTYPE = 'EXPONENTIAL' ; %{LINEAR,EXPONENTIAL}
+HARDTYPE = 'LINEAR' ; %{LINEAR,EXPONENTIAL}
 % VISCOUS/INVISCID
 % ------------------------
 VISCOUS = 'NO' ;

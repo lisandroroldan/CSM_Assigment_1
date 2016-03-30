@@ -41,6 +41,7 @@ end
 
 tetha=(sigma_v_mc(1)+sigma_v_mc(2)+sigma_v_mc(4))/(abs(sigma_v(1))+abs(sigma_v(2))+abs(sigma_v(4)));
 
+
 rtrial= sqrt(eps_n1*ce*eps_n1')*(tetha+(1-tetha)/n);
 
 end
