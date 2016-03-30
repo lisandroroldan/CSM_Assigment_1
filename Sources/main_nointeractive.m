@@ -57,9 +57,9 @@ ALPHA_COEFF = 0.5 ;
 % ----------------------------------
 nloadstates = 3 ;
 SIGMAP = zeros(nloadstates,2) ;
-SIGMAP(1,:) =[300 400];
-SIGMAP(2,:) =[500 400];
-SIGMAP(3,:) =[500 0];
+SIGMAP(1,:) =[-300 400];
+SIGMAP(2,:) =[500 -400];
+SIGMAP(3,:) =[-500 0];
 % Number of time increments for each load state
 % --------------------------------------- 
 istep = 10*ones(1,nloadstates) ;
