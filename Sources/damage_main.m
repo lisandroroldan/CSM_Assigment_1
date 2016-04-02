@@ -91,16 +91,16 @@ else
     mhist   = 6    ;
 end
 
-if viscpr == 1
-    % Comment/delete lines below once you have implemented this case
-    % *******************************************************
-    menu({'Viscous model has not been implemented yet. '; ...
-        'Modify files "damage_main.m","rmap_dano1" ' ; ...
-        'to include this option'},  ...
-        'STOP');
-    error('OPTION NOT AVAILABLE')
-else
-end
+% if viscpr == 1
+%     Comment/delete lines below once you have implemented this case
+%     *******************************************************
+%     menu({'Viscous model has not been implemented yet. '; ...
+%         'Modify files "damage_main.m","rmap_dano1" ' ; ...
+%         'to include this option'},  ...
+%         'STOP');
+%     error('OPTION NOT AVAILABLE')
+% else
+% end
 
 
 totalstep = sum(istep) ;
@@ -154,7 +154,8 @@ for  iload = 1:length(istep)
         %**************************************************************************************
         %*      DAMAGE MODEL
         % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        [sigma_n1,hvar_n,aux_var] = rmap_dano1(eps_n1,hvar_n,Eprop,ce,MDtype,n);
+        dt=delta_t(iload);
+        [sigma_n1,hvar_n,aux_var] = rmap_dano1(eps_n1,hvar_n,Eprop,ce,MDtype,n,dt);
         % PLOTTING DAMAGE SURFACE
         if(aux_var(1)>0)
             hplotSURF(i) = dibujar_criterio_dano1(ce, nu, hvar_n(6), 'r:',MDtype,n );

@@ -43,7 +43,7 @@ n = 3 ;
 HARDTYPE = 'EXPONENTIAL' ; %{LINEAR,EXPONENTIAL}
 % VISCOUS/INVISCID
 % ------------------------
-VISCOUS = 'NO' ;
+VISCOUS = 'YES' ;
 % Viscous coefficient ----
 % ------------------------
 eta = 0.3 ;
@@ -52,13 +52,13 @@ eta = 0.3 ;
 TimeTotal = 10 ;
 % Integration coefficient ALPHA
 % ------------------------
-ALPHA_COEFF = 0.5 ;
+ALPHA_COEFF = 1.0 ;
 % Points ---------------------------
 % ----------------------------------
 nloadstates = 3 ;
 SIGMAP = zeros(nloadstates,2) ;
-SIGMAP(1,:) =[-300 400];
-SIGMAP(2,:) =[-500 -400];
+SIGMAP(1,:) =[300 400];
+SIGMAP(2,:) =[500 400];
 SIGMAP(3,:) =[500 -500];
 % Number of time increments for each load state
 % --------------------------------------- 
@@ -105,7 +105,7 @@ switch  VISCOUS
 end
 
 
-Eprop   = [E nu HARDSOFT_MOD sigma_u hard_type viscpr eta ALPHA_COEFF]             ;
+Eprop   = [E nu HARDSOFT_MOD sigma_u hard_type viscpr eta ALPHA_COEFF];
 
 
 

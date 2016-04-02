@@ -1,4 +1,4 @@
-function [sigma_n1,hvar_n1,aux_var] = rmap_dano1 (eps_n1,hvar_n,Eprop,ce,MDtype,n)
+function [sigma_n1,hvar_n1,aux_var] = rmap_dano1 (eps_n1,hvar_n,Eprop,ce,MDtype,n,viscpr,dt)
 
 %**************************************************************************************
 %*                                         *
@@ -30,6 +30,8 @@ nu      = Eprop(2);
 H       = Eprop(3);
 sigma_u = Eprop(4);
 hard_type = Eprop(5) ;
+eta= Eprop(7);
+alpha= Eprop(8);
 %*************************************************************************************
 
 
@@ -43,12 +45,15 @@ hard_type = Eprop(5) ;
 % end
 %*************************************************************************************
 
-
 %*************************************************************************************
-%*       Damage surface                                                              %*
-[rtrial] = Modelos_de_dano1 (MDtype,ce,eps_n1,n);
-%*************************************************************************************
-
+%*       Damage surface                                                              
+if viscpr ==1
+    tau=sqrt(eps_n1*ce*eps_n1');
+    rtrial=(eta-dt*(1-alpha))/(eta+alpha*dt)*r_n +...
+           (dt/(eta+alpha*dt))*tau;
+else
+    [rtrial] = Modelos_de_dano1 (MDtype,ce,eps_n1,n);
+end
 
 %*************************************************************************************
 %*   Ver el Estado de Carga                                                           %*
