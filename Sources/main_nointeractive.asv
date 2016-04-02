@@ -43,7 +43,7 @@ n = 3 ;
 HARDTYPE = 'EXPONENTIAL' ; %{LINEAR,EXPONENTIAL}
 % VISCOUS/INVISCID
 % ------------------------
-VISCOUS = 'YES' ;
+VISCOUS = 'NO' ;
 % Viscous coefficient ----
 % ------------------------
 eta = 0.3 ;
@@ -57,8 +57,8 @@ ALPHA_COEFF = 1.0 ;
 % ----------------------------------
 nloadstates = 3 ;
 SIGMAP = zeros(nloadstates,2) ;
-SIGMAP(1,:) =[200 500];
-SIGMAP(2,:) =[500 500];
+SIGMAP(1,:) =[300 400];
+SIGMAP(2,:) =[500 400];
 SIGMAP(3,:) =[500 -500];
 % Number of time increments for each load state
 % --------------------------------------- 
@@ -166,13 +166,12 @@ DATA.strain = strain_history ;
 plotcurvesNEW(DATA,vpx,vpy,LABELPLOT,vartoplot) ;
 
 figure(3)
-dt=TimeTotal/sum(istep(:));
-t(1)=0;
+TimeTotal/sum(istep
 for i=2:size(C_tang,3)
-    t(i)=t(i-1)+dt;
+    x(i)=i;
     C11(i)=C_tang(1,1,i);
     Ce11(i)=ce(1,1);
 end
 
-plot(t,C11,t,Ce11)
+plot(x,C11,x,Ce11)
 

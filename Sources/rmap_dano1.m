@@ -123,7 +123,11 @@ hvar_n1(6)= q_n1 ;
 %* Auxiliar variables                                                               %*
 aux_var(1) = fload;
 aux_var(2) = q_n1/r_n1;
-%*aux_var(3) = (q_n1-H*r_n1)/r_n1^3;
+if viscpr ==1
+aux_var(3) = alpha*dt/(eta+alpha*dt)*(1/tau)*(H*r_n1-q_n1)/(r_n1^2);
+else
+aux_var(3) = (q_n1-H*r_n1)/r_n1^3;
+end
 %*************************************************************************************
  
 

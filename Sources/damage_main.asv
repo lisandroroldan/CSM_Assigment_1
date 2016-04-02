@@ -1,4 +1,4 @@
-function [sigma_v,vartoplot,LABELPLOT,TIMEVECTOR,C_tang,ce]=damage_main(Eprop,ntype,istep,strain,MDtype,n,TimeTotal)
+function [sigma_v,vartoplot,LABELPLOT,TIMEVECTOR]=damage_main(Eprop,ntype,istep,strain,MDtype,n,TimeTotal)
 global hplotSURF 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONTINUUM DAMAGE MODEL
@@ -142,7 +142,7 @@ vartoplot = cell(1,totalstep+1) ;
 vartoplot{i}(1) = hvar_n(6) ; % Hardening variable (q)
 vartoplot{i}(2) = hvar_n(5) ; % Internal variable (r)
 vartoplot{i}(3) = 1-hvar_n(6)/hvar_n(5)  ; %  Damage variable (d)
-C_tang(:,:,1)=ce;
+
 for  iload = 1:length(istep)
     % Load states
     for iloc = 1:istep(iload)
@@ -161,7 +161,7 @@ for  iload = 1:length(istep)
         % PLOTTING DAMAGE SURFACE
         if(aux_var(1)>0)
             hplotSURF(i) = dibujar_criterio_dano1(ce, nu, hvar_n(6), 'r:',MDtype,n );
-            set(hplotSURF(i),'Color',[0 0 1],'LineWidth',1) ;
+            set(hplotSURF(i),'Color',[0 0 1],'LineWidth',1)                         ;
         end
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,17 +180,9 @@ for  iload = 1:length(istep)
         vartoplot{i}(3) = 1-hvar_n(6)/hvar_n(5)  ; %  Damage variable (d)
         
         %Ctang tensor
-        
-         if(aux_var(1)>0)
         d=1-hvar_n(6)/hvar_n(5);
-        C_tang(:,:,i)=(1-d)*ce-aux_var(3)*(sigma_n1*sigma_n1')/((1-d)^2);
-         else
-        C_tang(:,:,i)=C_tang(:,:,i-1);
-         end
+        C_tang(:,:,i)=(1-d)*ce-aux_var(3)*(sigma_n1*sigma_n1')
         
     end
    
 end
-
-
-
