@@ -1,4 +1,4 @@
-function [sigma_n1,hvar_n1,aux_var] = rmap_dano1 (eps_n1,hvar_n,Eprop,ce,MDtype,n,dt)
+function [sigma_n1,hvar_n1,aux_var] = rmap_dano1 (eps_n1,eps_n,hvar_n,Eprop,ce,MDtype,n,dt)
 
 %**************************************************************************************
 %*                                         *
@@ -49,9 +49,19 @@ viscpr= Eprop(6);
 %*************************************************************************************
 %*       Damage surface       
 if viscpr ==1
-    tau=sqrt(eps_n1*ce*eps_n1');
-    rtrial=(eta-dt*(1-alpha))/(eta+alpha*dt)*r_n +...
-           (dt/(eta+alpha*dt))*tau;
+    tau_n1=sqrt(eps_n1*ce*eps_n1');
+    tau_n=sqrt(eps_n*ce*eps_n');
+    
+    tau_nalpha=(1-alpha)*tau_n + alpha*tau_n1;
+    
+    if tau_nalpha <= r_n
+        rtrial=r_n;
+    else
+        rtrial=(eta-dt*(1-alpha))/(eta+alpha*dt)*r_n +...
+           (dt/(eta+alpha*dt))*tau_nalpha; 
+    end
+    
+
 else
     [rtrial] = Modelos_de_dano1 (MDtype,ce,eps_n1,n);
 end
@@ -72,13 +82,15 @@ if(rtrial > r_n)
     if hard_type == 0
         %  Linear
         q_n1= q_n+ H*delta_r;
+        
     else
         %  Exponential
         A=H;
         H2=A*(q_inf-r_n)/r_n*exp(A*(1-rtrial/r_n));
         q_n1=q_n + H2*delta_r;
+        
     end
-
+    dqdr=(q_n1-q_n)/(r_n1-r_n);
     if(q_n1<zero_q)
         q_n1=zero_q;
     end
@@ -94,7 +106,7 @@ else
     fload=0;
     r_n1= r_n  ;
     q_n1= q_n  ;
-
+    dqdr=0;
 
 end
 % Damage variable
@@ -124,9 +136,9 @@ hvar_n1(6)= q_n1 ;
 aux_var(1) = fload;
 aux_var(2) = q_n1/r_n1;
 if viscpr ==1
-aux_var(3) = alpha*dt/(eta+alpha*dt)*(1/tau)*(H*r_n1-q_n1)/(r_n1^2);
+aux_var(3) = -alpha*dt/(eta+alpha*dt)*(1/tau_n1)*(dqdr*r_n1-q_n1)/(r_n1^2);
 else
-aux_var(3) = (q_n1-H*r_n1)/r_n1^3;
+aux_var(3) = (q_n1-dqdr*r_n1)/r_n1^3;
 end
 %*************************************************************************************
  

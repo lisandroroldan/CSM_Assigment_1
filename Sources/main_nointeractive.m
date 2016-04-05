@@ -40,29 +40,29 @@ MDtype =1;
 n = 3 ;
 % SOFTENING/HARDENING TYPE
 % ------------------------
-HARDTYPE = 'EXPONENTIAL' ; %{LINEAR,EXPONENTIAL}
+HARDTYPE = 'LINEAR' ; %{LINEAR,EXPONENTIAL}
 % VISCOUS/INVISCID
 % ------------------------
 VISCOUS = 'YES' ;
 % Viscous coefficient ----
 % ------------------------
-eta = 0.3 ;
+eta = 0.5;
 % TimeTotal (initial = 0) ----
 % ------------------------
 TimeTotal = 10 ;
 % Integration coefficient ALPHA
 % ------------------------
-ALPHA_COEFF = 1.0 ;
+ALPHA_COEFF = 1 ;
 % Points ---------------------------
 % ----------------------------------
 nloadstates = 3 ;
 SIGMAP = zeros(nloadstates,2) ;
-SIGMAP(1,:) =[200 500];
-SIGMAP(2,:) =[500 500];
-SIGMAP(3,:) =[500 -500];
+SIGMAP(1,:) =[150 300];
+SIGMAP(2,:) =[300 300];
+SIGMAP(3,:) =[300 -600];
 % Number of time increments for each load state
 % --------------------------------------- 
-istep = 10*ones(1,nloadstates) ;
+istep = 5*ones(1,nloadstates) ;
  
 % VARIABLES TO PLOT
 vpx = 'TIME' ; % AVAILABLE OPTIONS: 'STRAIN_1', 'STRAIN_2'
@@ -133,8 +133,8 @@ for i = 2:length(sigma_v)
     tstress_eig = sigma_v{i-1}; %eigs(sigma_v{i-1}) ;
     hplotLLL(end+1) = plot([tstress_eig(1,1) stress_eig(1,1) ],[tstress_eig(2,2) stress_eig(2,2)],'LineWidth',2,'color',colores(1,:),'Marker',markers{1},'MarkerSize',2);
     plot(stress_eig(1,1),stress_eig(2,2),'bx')
-    text(stress_eig(1,1),stress_eig(2,2),num2str(i))
-    
+    %text(stress_eig(1,1),stress_eig(2,2),num2str(i))
+   
     
     % SURFACES
     % -----
@@ -174,5 +174,5 @@ for i=2:size(C_tang,3)
     Ce11(i)=ce(1,1);
 end
 
-plot(t,C11,t,Ce11)
+plot(t(2:end),C11(2:end),t(2:end),Ce11(2:end))
 

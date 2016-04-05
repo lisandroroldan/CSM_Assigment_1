@@ -151,13 +151,14 @@ for  iload = 1:length(istep)
         % Total strain at step "i"
         % ------------------------
         eps_n1 = strain(i,:) ;
+        eps_n = strain (i-1,:);
         %**************************************************************************************
         %*      DAMAGE MODEL
         % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         dt=delta_t(iload);
-        [sigma_n1,hvar_n,aux_var] = rmap_dano1(eps_n1,hvar_n,Eprop,ce,MDtype,n,dt);
+        [sigma_n1,hvar_n,aux_var] = rmap_dano1(eps_n1,eps_n,hvar_n,Eprop,ce,MDtype,n,dt);
         
-        
+       
         % PLOTTING DAMAGE SURFACE
         if(aux_var(1)>0)
             hplotSURF(i) = dibujar_criterio_dano1(ce, nu, hvar_n(6), 'r:',MDtype,n );
@@ -181,12 +182,12 @@ for  iload = 1:length(istep)
         
         %Ctang tensor
         
-         if(aux_var(1)>0)
+        if(aux_var(1)>0)
         d=1-hvar_n(6)/hvar_n(5);
         C_tang(:,:,i)=(1-d)*ce-aux_var(3)*(sigma_n1*sigma_n1')/((1-d)^2);
-         else
+        else
         C_tang(:,:,i)=C_tang(:,:,i-1);
-         end
+        end
         
     end
    
