@@ -78,14 +78,15 @@ if(rtrial > r_n)
     fload=1;
     delta_r=rtrial-r_n;
     r_n1= rtrial  ;
-    q_inf=zero_q+2*r_n; %playing with q_inf
+    %q_inf=zero_q+2*r_n; %playing with q_inf
+    q_inf=3;
     if hard_type == 0
         %  Linear
         q_n1= q_n+ H*delta_r;
         
     else
         %  Exponential
-        A=H;
+        A=0.1;
         H2=A*(q_inf-r_n)/r_n*exp(A*(1-rtrial/r_n));
         q_n1=q_n + H2*delta_r;
         

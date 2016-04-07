@@ -23,7 +23,7 @@ YOUNG_M = 20000 ;
 POISSON = 0.3 ;
 % Hardening/softening modulus
 % ---------------------------
-HARDSOFT_MOD = 0.1 ;
+HARDSOFT_MOD = 0.5 ;
 % Yield stress
 % ------------
 YIELD_STRESS = 200 ;
@@ -46,18 +46,18 @@ HARDTYPE = 'LINEAR' ; %{LINEAR,EXPONENTIAL}
 VISCOUS = 'YES' ;
 % Viscous coefficient ----
 % ------------------------
-eta = 0.5;
+eta = 1.5;
 % TimeTotal (initial = 0) ----
 % ------------------------
-TimeTotal = 10 ;
+TimeTotal = 1 ;
 % Integration coefficient ALPHA
 % ------------------------
-ALPHA_COEFF = 1 ;
+ALPHA_COEFF = 0.5;
 % Points ---------------------------
 % ----------------------------------
 nloadstates = 3 ;
 SIGMAP = zeros(nloadstates,2) ;
-SIGMAP(1,:) =[150 300];
+SIGMAP(1,:) =[000 300];
 SIGMAP(2,:) =[300 300];
 SIGMAP(3,:) =[300 -600];
 % Number of time increments for each load state
@@ -165,7 +165,7 @@ DATA.strain = strain_history ;
 
 plotcurvesNEW(DATA,vpx,vpy,LABELPLOT,vartoplot) ;
 
-figure(3)
+%figure(3)
 dt=TimeTotal/sum(istep(:));
 t(1)=0;
 for i=2:size(C_tang,3)
@@ -174,5 +174,7 @@ for i=2:size(C_tang,3)
     Ce11(i)=ce(1,1);
 end
 
-plot(t(2:end),C11(2:end),t(2:end),Ce11(2:end))
+
+
+%plot(t(2:end),C11(2:end),t(2:end),Ce11(2:end))
 
