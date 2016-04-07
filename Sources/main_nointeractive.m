@@ -46,20 +46,20 @@ HARDTYPE = 'LINEAR' ; %{LINEAR,EXPONENTIAL}
 VISCOUS = 'YES' ;
 % Viscous coefficient ----
 % ------------------------
-eta = 1.5;
+eta = 0.1;
 % TimeTotal (initial = 0) ----
 % ------------------------
-TimeTotal = 1 ;
+TimeTotal = 10 ;
 % Integration coefficient ALPHA
 % ------------------------
-ALPHA_COEFF = 0.5;
+ALPHA_COEFF = 1;
 % Points ---------------------------
 % ----------------------------------
 nloadstates = 3 ;
 SIGMAP = zeros(nloadstates,2) ;
 SIGMAP(1,:) =[000 300];
-SIGMAP(2,:) =[300 300];
-SIGMAP(3,:) =[300 -600];
+SIGMAP(2,:) =[600 600];
+SIGMAP(3,:) =[0 -0];
 % Number of time increments for each load state
 % --------------------------------------- 
 istep = 5*ones(1,nloadstates) ;
@@ -111,7 +111,7 @@ Eprop   = [E nu HARDSOFT_MOD sigma_u hard_type viscpr eta ALPHA_COEFF];
 
 % DAMAGE MODEL
 % ------------
-[sigma_v,vartoplot,LABELPLOT_out,TIMEVECTOR,C_tang,ce]=damage_main(Eprop,ntype,istep,strain_history,MDtype,n,TimeTotal);
+[sigma_v,vartoplot,LABELPLOT_out,TIMEVECTOR,C_tang,C_alg,ce]=damage_main(Eprop,ntype,istep,strain_history,MDtype,n,TimeTotal);
 
 
 
@@ -165,16 +165,17 @@ DATA.strain = strain_history ;
 
 plotcurvesNEW(DATA,vpx,vpy,LABELPLOT,vartoplot) ;
 
-%figure(3)
+figure(3)
 dt=TimeTotal/sum(istep(:));
 t(1)=0;
 for i=2:size(C_tang,3)
     t(i)=t(i-1)+dt;
-    C11(i)=C_tang(1,1,i);
-    Ce11(i)=ce(1,1);
+    C_tang_11(i)=C_tang(1,1,i);
+    C_alg_11(i)=C_alg(1,1,i);
+    Ce_11(i)=ce(1,1);
 end
 
 
 
-%plot(t(2:end),C11(2:end),t(2:end),Ce11(2:end))
-
+plot(t(2:end),Ce_11(2:end),t(2:end),C_tang_11(2:end),t(2:end),C_alg_11(2:end))
+legend('Ce11','Ctang11','Calg11')

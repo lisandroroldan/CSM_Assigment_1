@@ -1,4 +1,4 @@
-function [sigma_v,vartoplot,LABELPLOT,TIMEVECTOR,C_tang,ce]=damage_main(Eprop,ntype,istep,strain,MDtype,n,TimeTotal)
+function [sigma_v,vartoplot,LABELPLOT,TIMEVECTOR,C_tang,C_alg,ce]=damage_main(Eprop,ntype,istep,strain,MDtype,n,TimeTotal)
 global hplotSURF 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONTINUUM DAMAGE MODEL
@@ -181,14 +181,13 @@ for  iload = 1:length(istep)
         vartoplot{i}(3) = 1-hvar_n(6)/hvar_n(5)  ; %  Damage variable (d)
         
         %Ctang tensor
-        
-        if(aux_var(1)>0)
         d=1-hvar_n(6)/hvar_n(5);
-        C_tang(:,:,i)=(1-d)*ce-aux_var(3)*(sigma_n1*sigma_n1')/((1-d)^2);
+        if(aux_var(1)>0)
+        C_alg(:,:,i)=(1-d)*ce-aux_var(3)*(sigma_n1*sigma_n1')/((1-d)^2);
         else
-        C_tang(:,:,i)=C_tang(:,:,i-1);
+        C_alg(:,:,i)=(1-d)*ce;
         end
-        
+        C_tang(:,:,i)=(1-d)*ce;
     end
    
 end
